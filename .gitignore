@@ -1,0 +1,168 @@
+# ================================
+# OS / System
+# ================================
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ================================
+# IDE (Android Studio / IntelliJ)
+# ================================
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Specific IDEA files (keep code style if потрібно)
+.idea/workspace.xml
+.idea/tasks.xml
+.idea/dictionaries
+.idea/caches
+.idea/libraries
+
+# ================================
+# Gradle
+# ================================
+.gradle/
+build/
+gradle-daemon-jvm.properties
+
+# Kotlin DSL caches
+.gradle/kotlin/
+.gradle/buildOutputCleanup/
+
+# ================================
+# Local config (секрети)
+# ================================
+local.properties
+*.keystore
+*.jks
+keystore.properties
+
+# Firebase / Google Services (якщо містять ключі)
+google-services.json
+GoogleService-Info.plist
+
+# Env files
+.env
+.env.*
+
+# ================================
+# Android build outputs
+# ================================
+**/build/
+**/captures/
+outputs/
+apk/
+*.apk
+*.aab
+*.ap_
+*.dex
+
+# ================================
+# Native / NDK
+# ================================
+.externalNativeBuild/
+.cxx/
+ndkBuild/
+obj/
+lib/
+
+# ================================
+# CMake
+# ================================
+CMakeFiles/
+CMakeCache.txt
+
+# ================================
+# Logs
+# ================================
+*.log
+
+# ================================
+# Profiling / temp
+# ================================
+*.hprof
+*.trace
+
+# ================================
+# Kotlin
+# ================================
+*.kotlin_module
+
+# ================================
+# Generated files
+# ================================
+generated/
+**/generated/
+**/ksp/
+**/kapt/
+**/build/generated/
+
+# Room schema (ВАЖЛИВО: виріши сам)
+# Якщо потрібні для міграцій — НЕ ігнорь
+#schemas/
+#*.json
+
+# ================================
+# Jetpack Compose
+# ================================
+compose_compiler/
+
+# ================================
+# Navigation Safe Args
+# ================================
+.navigation/
+
+# ================================
+# Lint
+# ================================
+lint/intermediates/
+lint/generated/
+
+# ================================
+# Test / coverage
+# ================================
+/coverage/
+*.ec
+
+# ================================
+# Emulator
+# ================================
+*.lock
+*.ini
+avd/
+
+# ================================
+# Fastlane (якщо є)
+# ================================
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/
+fastlane/test_output/
+
+# ================================
+# CI/CD
+# ================================
+# якщо кешиш локально
+.ci/
+.github/workflows/*.log
+
+# ================================
+# Misc
+# ================================
+tmp/
+temp/
+*.tmp
+*.bak
+*.swp
+
+# ================================
+# Flutter module (якщо hybrid)
+# ================================
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+build/
