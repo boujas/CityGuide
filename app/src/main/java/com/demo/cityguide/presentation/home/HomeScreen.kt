@@ -91,9 +91,10 @@ fun HomeScreen(
                     shape = CircleShape
                 ) {
                     Icon(
-                        imageVector = Icons.Default.Notifications,
+                        painter = painterResource(R.drawable.ic_random),
                         contentDescription = "Random Place",
-                        tint = Color.White
+                        tint = Color.White,
+                        modifier = Modifier.size(50.dp)
                     )
                 }
             }
@@ -159,7 +160,7 @@ fun SuccessContent(places: List<Place>, modifier: Modifier) {
 
 @Composable
 fun BottomBar(selectedType: PlaceType, onTypeSelected: (PlaceType) -> Unit) {
-    NavigationBar(modifier = Modifier.height(80.dp))
+    NavigationBar(modifier = Modifier.height(95.dp))
     {
         PlaceType.entries.forEach { type ->
             NavigationBarItem(
@@ -167,10 +168,15 @@ fun BottomBar(selectedType: PlaceType, onTypeSelected: (PlaceType) -> Unit) {
                 onClick = { onTypeSelected(type) },
                 icon = {
                     Icon(
-                        imageVector = type.icon,
-                        contentDescription = type.label
+                        modifier = Modifier
+                            .size(36.dp)
+                            .padding(top = 5.dp),
+                        painter = type.icon,
+                        contentDescription = type.label,
+                        tint = Color.Unspecified
                     )
-                }
+                },
+                label = { Text(type.label) }
             )
         }
     }
@@ -213,7 +219,7 @@ fun PlaceItem(place: Place) {
 
             IconButton(onClick = { openGoogleMaps(context, place.address) }) {
                 Icon(
-                    painter = painterResource(R.drawable.ic_launcher_foreground),
+                    painter = painterResource(R.drawable.ic_route),
                     contentDescription = "Open Google Maps",
                     modifier = Modifier.size(32.dp),
                     tint = Color.Unspecified
