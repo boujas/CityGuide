@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CityGuide</string>
+
+    <string name="sync_dialog_new_title">🎉 New places!</string>
+    <string name="sync_dialog_new_button">Awesome!</string>
+    <string name="sync_dialog_closed_title">😔 Unfortunately, closed…</string>
+    <string name="sync_dialog_closed_button">Got it</string>
 </resources>

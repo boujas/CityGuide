@@ -1,4 +1,4 @@
-package com.demo.cityguide.presentation.home
+package com.demo.cityguide.presentation.home.dialogs
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.Spring
