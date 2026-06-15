@@ -16,8 +16,6 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Notifications
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
@@ -52,6 +50,9 @@ import com.demo.cityguide.domain.model.Place
 import com.demo.cityguide.domain.model.PlaceType
 import com.demo.cityguide.presentation.ext.icon
 import com.demo.cityguide.presentation.ext.label
+import com.demo.cityguide.presentation.home.dialogs.RandomPlaceDialog
+import com.demo.cityguide.presentation.home.dialogs.SyncPlacesDialog
+import com.demo.cityguide.presentation.home.models.SyncDialogType
 import com.demo.cityguide.presentation.utils.openGoogleMaps
 import com.demo.cityguide.presentation.utils.openInstagram
 
@@ -105,6 +106,14 @@ fun HomeScreen(
             HomeUiState.Idle -> Unit
             HomeUiState.Loading -> LoadingContent()
             is HomeUiState.Success -> {
+
+                state.currentDialog?.let { dialog ->
+                    SyncPlacesDialog(
+                        type = dialog,
+                        onDismiss = viewModel::dismissCurrentDialog
+                    )
+                }
+
                 SuccessContent(
                     places = state.filteredPlaces,
                     modifier = Modifier.padding(innerPadding)
