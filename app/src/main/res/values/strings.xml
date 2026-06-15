@@ -5,4 +5,16 @@
     <string name="sync_dialog_new_button">Awesome!</string>
     <string name="sync_dialog_closed_title">😔 Unfortunately, closed…</string>
     <string name="sync_dialog_closed_button">Got it</string>
+
+    <string name="home_btn_random_place">Random Place</string>
+    <string name="home_btn_open_maps">Open Google Maps</string>
+    <string name="home_app_bar_title">What\'s your pick today?</string>
+
+    <string name="home_bottom_bar_coffee">Coffee shops</string>
+    <string name="home_bottom_bar_bar">Bars</string>
+    <string name="home_bottom_bar_cafe">Cafes</string>
+
+    <string name="random_dialog_title">Where to go...</string>
+    <string name="random_dialog_btn_close">Close</string>
+
 </resources>

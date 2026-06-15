@@ -30,13 +30,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.demo.cityguide.R
 import com.demo.cityguide.domain.model.Place
 import kotlinx.coroutines.delay
+import kotlin.time.Duration.Companion.milliseconds
 
 @Composable
 fun RandomPlaceDialog(places: List<Place>, onDismiss: () -> Unit) {
@@ -56,7 +59,7 @@ fun RandomPlaceDialog(places: List<Place>, onDismiss: () -> Unit) {
 
             currentName = places.random().name
 
-            delay(delay)
+            delay(delay.milliseconds)
         }
 
         selectedPlace = places.random()
@@ -78,7 +81,7 @@ fun RandomPlaceDialog(places: List<Place>, onDismiss: () -> Unit) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "Where to go...",
+                    text = stringResource(R.string.random_dialog_title),
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold
                 )
@@ -134,7 +137,7 @@ fun RandomPlaceDialog(places: List<Place>, onDismiss: () -> Unit) {
                         horizontalArrangement = Arrangement.Absolute.spacedBy(12.dp)
                     ) {
                         OutlinedButton(onClick = onDismiss) {
-                            Text("Close")
+                            Text(stringResource(R.string.random_dialog_btn_close))
                         }
                     }
                 }

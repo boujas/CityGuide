@@ -40,6 +40,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -52,7 +53,6 @@ import com.demo.cityguide.presentation.ext.icon
 import com.demo.cityguide.presentation.ext.label
 import com.demo.cityguide.presentation.home.dialogs.RandomPlaceDialog
 import com.demo.cityguide.presentation.home.dialogs.SyncPlacesDialog
-import com.demo.cityguide.presentation.home.models.SyncDialogType
 import com.demo.cityguide.presentation.utils.openGoogleMaps
 import com.demo.cityguide.presentation.utils.openInstagram
 
@@ -72,7 +72,7 @@ fun HomeScreen(
                     titleContentColor = MaterialTheme.colorScheme.primary,
                 ),
                 title = {
-                    Text("What's your pick today?")
+                    Text(stringResource(R.string.home_app_bar_title))
                 }
             )
         },
@@ -93,7 +93,7 @@ fun HomeScreen(
                 ) {
                     Icon(
                         painter = painterResource(R.drawable.ic_random),
-                        contentDescription = "Random Place",
+                        contentDescription = stringResource(R.string.home_btn_random_place),
                         tint = Color.White,
                         modifier = Modifier.size(50.dp)
                     )
@@ -229,7 +229,7 @@ fun PlaceItem(place: Place) {
             IconButton(onClick = { openGoogleMaps(context, place.address) }) {
                 Icon(
                     painter = painterResource(R.drawable.ic_route),
-                    contentDescription = "Open Google Maps",
+                    contentDescription = stringResource(R.string.home_btn_open_maps),
                     modifier = Modifier.size(32.dp),
                     tint = Color.Unspecified
                 )
