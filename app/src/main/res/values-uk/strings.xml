@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">CityGuide</string>
+
+    <string name="sync_dialog_new_title">🎉 Нові заклади!</string>
+    <string name="sync_dialog_new_button">Супер!</string>
+    <string name="sync_dialog_closed_title">😔 Нажаль, зачинені…</string>
+    <string name="sync_dialog_closed_button">Зрозуміло</string>
+
+    <string name="home_btn_random_place">Випадковий заклад</string>
+    <string name="home_btn_open_maps">Відкрити Google Maps</string>
+    <string name="home_app_bar_title">Куди підемо сьогодні?</string>
+
+    <string name="home_bottom_bar_coffee">Кав\'ярні</string>
+    <string name="home_bottom_bar_bar">Бари</string>
+    <string name="home_bottom_bar_cafe">Кафе</string>
+
+    <string name="random_dialog_title">Куди б піти...</string>
+    <string name="random_dialog_btn_close">Закрити</string>
+</resources>
