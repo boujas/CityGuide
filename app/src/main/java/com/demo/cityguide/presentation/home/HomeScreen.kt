@@ -44,8 +44,6 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.demo.cityguide.R
 import com.demo.cityguide.domain.model.Place
 import com.demo.cityguide.domain.model.PlaceType
@@ -55,13 +53,16 @@ import com.demo.cityguide.presentation.home.dialogs.RandomPlaceDialog
 import com.demo.cityguide.presentation.home.dialogs.SyncPlacesDialog
 import com.demo.cityguide.presentation.utils.openGoogleMaps
 import com.demo.cityguide.presentation.utils.openInstagram
+import com.demo.cityguide.ui.theme.CityGuideTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
-    viewModel: HomeViewModel = hiltViewModel()
+    uiState: HomeUiState,
+    onAction: (HomeAction) -> Unit,
+    onPlaceClick: (String) -> Unit
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     var showRandomDialog by remember { mutableStateOf(false) }
 
     Scaffold(
@@ -79,8 +80,8 @@ fun HomeScreen(
         bottomBar = {
             if (uiState is HomeUiState.Success) {
                 BottomBar(
-                    selectedType = (uiState as HomeUiState.Success).selectedType,
-                    onTypeSelected = viewModel::selectType
+                    selectedType = uiState.selectedType,
+                    onTypeSelected = { type -> onAction(HomeAction.TypeSelected(type)) }
                 )
             }
         },
@@ -101,27 +102,28 @@ fun HomeScreen(
             }
         }
     ) { innerPadding ->
-        when (val state = uiState) {
-            is HomeUiState.Failure -> ErrorContent(message = state.message) // TODO Add retry
+        when (uiState) {
+            is HomeUiState.Failure -> ErrorContent(message = uiState.message) // TODO Add retry
             HomeUiState.Idle -> Unit
             HomeUiState.Loading -> LoadingContent()
             is HomeUiState.Success -> {
 
-                state.currentDialog?.let { dialog ->
+                uiState.currentDialog?.let { dialog ->
                     SyncPlacesDialog(
                         type = dialog,
-                        onDismiss = viewModel::dismissCurrentDialog
+                        onDismiss = { onAction(HomeAction.SyncDialogDismissed) }
                     )
                 }
 
                 SuccessContent(
-                    places = state.filteredPlaces,
+                    places = uiState.filteredPlaces,
+                    onPlaceClick = onPlaceClick,
                     modifier = Modifier.padding(innerPadding)
                 )
 
                 if (showRandomDialog) {
                     RandomPlaceDialog(
-                        places = state.filteredPlaces,
+                        places = uiState.filteredPlaces,
                         onDismiss = { showRandomDialog = false }
                     )
                 }
@@ -145,7 +147,7 @@ fun ErrorContent(message: String) {
 }
 
 @Composable
-fun SuccessContent(places: List<Place>, modifier: Modifier) {
+fun SuccessContent(places: List<Place>, onPlaceClick: (String) -> Unit, modifier: Modifier) {
     if (places.isEmpty()) {
         Box(
             modifier = modifier.fillMaxSize(),
@@ -162,7 +164,10 @@ fun SuccessContent(places: List<Place>, modifier: Modifier) {
         verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         items(places, key = { it.id }) { place ->
-            PlaceItem(place = place)
+            PlaceItem(
+                place = place,
+                onClick = { onPlaceClick(place.id) }
+            )
         }
     }
 }
@@ -192,11 +197,13 @@ fun BottomBar(selectedType: PlaceType, onTypeSelected: (PlaceType) -> Unit) {
 }
 
 @Composable
-fun PlaceItem(place: Place) {
+fun PlaceItem(place: Place, onClick: () -> Unit) {
     val context = LocalContext.current
 
     Card(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier
+            .fillMaxSize()
+            .clickable(onClick = onClick),
         shape = RoundedCornerShape(12.dp),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
     ) {
@@ -240,6 +247,31 @@ fun PlaceItem(place: Place) {
 
 @Composable
 @Preview(showBackground = true)
-fun ContentPreview() {
-    HomeScreen()
+fun HomeScreenPreview() {
+    CityGuideTheme {
+        HomeScreen(
+            uiState = HomeUiState.Success(
+                places = listOf(
+                    Place(
+                        id = "1",
+                        name = "Black Sheep",
+                        instagram = "blacksheep.dp",
+                        address = "Dnipro, Some street 10",
+                        type = PlaceType.BAR,
+                        isActive = true
+                    ),
+                    Place(
+                        id = "2",
+                        name = "Coffee Room",
+                        instagram = "coffeeroom.dp",
+                        address = "Dnipro, Central avenue 20",
+                        type = PlaceType.BAR,
+                        isActive = true
+                    )
+                )
+            ),
+            onAction = {},
+            onPlaceClick = {}
+        )
+    }
 }

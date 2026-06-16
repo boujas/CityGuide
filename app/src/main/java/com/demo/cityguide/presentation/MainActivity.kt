@@ -6,7 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
-import com.demo.cityguide.presentation.home.HomeScreen
+import com.demo.cityguide.presentation.navigation.CityGuideNavHost
 import com.demo.cityguide.ui.theme.CityGuideTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             CityGuideTheme {
-                HomeScreen()
+                CityGuideNavHost()
             }
         }
     }
@@ -27,6 +27,6 @@ class MainActivity : ComponentActivity() {
 @Composable
 fun GreetingPreview() {
     CityGuideTheme {
-        HomeScreen()
+        CityGuideNavHost()
     }
 }
