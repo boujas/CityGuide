@@ -2,11 +2,11 @@ package com.demo.cityguide.presentation.home.models
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import com.demo.cityguide.R
 import com.demo.cityguide.domain.model.Place
+import com.demo.cityguide.ui.theme.AppTheme
 
 sealed class SyncDialogType(
     @field:StringRes val titleRes: Int,
@@ -19,7 +19,7 @@ sealed class SyncDialogType(
         titleRes = R.string.sync_dialog_new_title,
         buttonTextRes = R.string.sync_dialog_new_button,
         iconRes = R.drawable.ic_random,
-        color = { MaterialTheme.colorScheme.primary },
+        color = { AppTheme.colors.primary },
         places = newPlaces
     )
 
@@ -27,7 +27,7 @@ sealed class SyncDialogType(
         titleRes = R.string.sync_dialog_closed_title,
         buttonTextRes = R.string.sync_dialog_closed_button,
         iconRes = R.drawable.ic_random,
-        color = { MaterialTheme.colorScheme.error },
+        color = { AppTheme.colors.closed },
         places = closedPlaces
     )
 }

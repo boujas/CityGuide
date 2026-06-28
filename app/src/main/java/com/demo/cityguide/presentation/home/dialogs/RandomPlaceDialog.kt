@@ -8,6 +8,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.animation.expandVertically
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.slideInVertically
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,6 +18,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedButton
@@ -38,6 +40,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.demo.cityguide.R
 import com.demo.cityguide.domain.model.Place
+import com.demo.cityguide.ui.theme.AppTheme
 import kotlinx.coroutines.delay
 import kotlin.time.Duration.Companion.milliseconds
 
@@ -113,14 +116,14 @@ fun RandomPlaceDialog(places: List<Place>, onDismiss: () -> Unit) {
                             Text(
                                 text = place.address,
                                 style = MaterialTheme.typography.bodyMedium,
-                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                color = AppTheme.colors.onBackgroundMuted,
                                 textAlign = TextAlign.Center
                             )
                             Spacer(modifier = Modifier.height(8.dp))
                             Text(
                                 text = place.instagram,
                                 style = MaterialTheme.typography.bodySmall,
-                                color = MaterialTheme.colorScheme.primary,
+                                color = AppTheme.colors.primary,
                                 textDecoration = TextDecoration.Underline
                             )
                         }
@@ -136,7 +139,13 @@ fun RandomPlaceDialog(places: List<Place>, onDismiss: () -> Unit) {
                     Row(
                         horizontalArrangement = Arrangement.Absolute.spacedBy(12.dp)
                     ) {
-                        OutlinedButton(onClick = onDismiss) {
+                        OutlinedButton(
+                            onClick = onDismiss,
+                            border = BorderStroke(1.dp, AppTheme.colors.primary),
+                            colors = ButtonDefaults.outlinedButtonColors(
+                                contentColor = AppTheme.colors.primary,
+                            )
+                        ) {
                             Text(stringResource(R.string.random_dialog_btn_close))
                         }
                     }
@@ -158,7 +167,7 @@ private fun SpinningName(name: String) {
         style = MaterialTheme.typography.headlineSmall,
         fontWeight = FontWeight.Bold,
         textAlign = TextAlign.Center,
-        color = MaterialTheme.colorScheme.onSurface.copy(alpha = alpha),
+        color = AppTheme.colors.onBackground.copy(alpha = alpha),
         modifier = Modifier.fillMaxWidth()
     )
 }
@@ -178,7 +187,7 @@ private fun RevealedName(name: String) {
         style = MaterialTheme.typography.headlineSmall,
         fontWeight = FontWeight.Bold,
         textAlign = TextAlign.Center,
-        color = MaterialTheme.colorScheme.primary,
+        color = AppTheme.colors.primary,
         modifier = Modifier
             .fillMaxWidth()
             .graphicsLayer { scaleX = scale; scaleY = scale }
