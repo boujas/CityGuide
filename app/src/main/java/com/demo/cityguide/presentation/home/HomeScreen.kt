@@ -26,6 +26,7 @@ import androidx.compose.material3.LargeFloatingActionButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.NavigationBarItemDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -53,7 +54,7 @@ import com.demo.cityguide.presentation.home.dialogs.RandomPlaceDialog
 import com.demo.cityguide.presentation.home.dialogs.SyncPlacesDialog
 import com.demo.cityguide.presentation.utils.openGoogleMaps
 import com.demo.cityguide.presentation.utils.openInstagram
-import com.demo.cityguide.ui.theme.CityGuideTheme
+import com.demo.cityguide.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -69,8 +70,8 @@ fun HomeScreen(
         topBar = {
             TopAppBar(
                 colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.primary,
+                    containerColor = AppTheme.colors.primary,
+                    titleContentColor = AppTheme.colors.onPrimary,
                 ),
                 title = {
                     Text(stringResource(R.string.home_app_bar_title))
@@ -89,7 +90,7 @@ fun HomeScreen(
             if (uiState is HomeUiState.Success) {
                 LargeFloatingActionButton(
                     onClick = { showRandomDialog = true },
-                    containerColor = MaterialTheme.colorScheme.error,
+                    containerColor = AppTheme.colors.primary,
                     shape = CircleShape
                 ) {
                     Icon(
@@ -142,7 +143,7 @@ fun LoadingContent() {
 @Composable
 fun ErrorContent(message: String) {
     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
-        Text(text = message, color = MaterialTheme.colorScheme.error)
+        Text(text = message, color = AppTheme.colors.closed)
     }
 }
 
@@ -174,12 +175,21 @@ fun SuccessContent(places: List<Place>, onPlaceClick: (String) -> Unit, modifier
 
 @Composable
 fun BottomBar(selectedType: PlaceType, onTypeSelected: (PlaceType) -> Unit) {
-    NavigationBar(modifier = Modifier.height(95.dp))
-    {
+    NavigationBar(
+        modifier = Modifier.height(95.dp),
+        containerColor = AppTheme.colors.surface,
+    ) {
         PlaceType.entries.forEach { type ->
             NavigationBarItem(
                 selected = selectedType == type,
                 onClick = { onTypeSelected(type) },
+                colors = NavigationBarItemDefaults.colors(
+                    selectedIconColor = AppTheme.colors.primary,
+                    selectedTextColor = AppTheme.colors.primary,
+                    unselectedIconColor = AppTheme.colors.onBackgroundMuted,
+                    unselectedTextColor = AppTheme.colors.onBackgroundMuted,
+                    indicatorColor = AppTheme.colors.surfaceVariant,
+                ),
                 icon = {
                     Icon(
                         modifier = Modifier
@@ -187,7 +197,6 @@ fun BottomBar(selectedType: PlaceType, onTypeSelected: (PlaceType) -> Unit) {
                             .padding(top = 5.dp),
                         painter = type.icon,
                         contentDescription = type.label,
-                        tint = Color.Unspecified
                     )
                 },
                 label = { Text(type.label) }
@@ -227,7 +236,7 @@ fun PlaceItem(place: Place, onClick: () -> Unit) {
                 Text(
                     text = "@${place.instagram}",
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = AppTheme.colors.primary,
                     textDecoration = TextDecoration.Underline,
                     modifier = Modifier.clickable { openInstagram(context, place.instagram) }
                 )
@@ -248,7 +257,7 @@ fun PlaceItem(place: Place, onClick: () -> Unit) {
 @Composable
 @Preview(showBackground = true)
 fun HomeScreenPreview() {
-    CityGuideTheme {
+    AppTheme {
         HomeScreen(
             uiState = HomeUiState.Success(
                 places = listOf(

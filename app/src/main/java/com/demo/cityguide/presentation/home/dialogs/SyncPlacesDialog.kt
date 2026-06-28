@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.demo.cityguide.domain.model.Place
 import com.demo.cityguide.presentation.home.models.SyncDialogType
+import com.demo.cityguide.ui.theme.AppTheme
 
 @Composable
 fun SyncPlacesDialog(
@@ -73,7 +74,7 @@ fun SyncPlacesDialog(
                                     color = if (pagerState.currentPage == index)
                                         indicatorColor
                                     else
-                                        MaterialTheme.colorScheme.outline,
+                                        AppTheme.colors.outline,
                                     shape = CircleShape
                                 )
                         )
@@ -114,14 +115,14 @@ private fun PlaceCard(place: Place) {
         Text(
             text = place.address,
             style = MaterialTheme.typography.bodyMedium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            color = AppTheme.colors.onBackgroundMuted,
             textAlign = TextAlign.Center
         )
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = "@${place.instagram}",
             style = MaterialTheme.typography.bodySmall,
-            color = MaterialTheme.colorScheme.primary
+            color = AppTheme.colors.primary
         )
     }
 }

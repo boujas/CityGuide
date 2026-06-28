@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">CityGuide</string>
+    <string name="app_name">Vibe</string>
 
     <string name="sync_dialog_new_title">🎉 Нові заклади!</string>
     <string name="sync_dialog_new_button">Супер!</string>

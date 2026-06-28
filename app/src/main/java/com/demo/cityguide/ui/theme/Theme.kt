@@ -1,58 +1,60 @@
 package com.demo.cityguide.ui.theme
 
-import android.app.Activity
-import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
-import androidx.compose.material3.dynamicDarkColorScheme
-import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.ReadOnlyComposable
 
-private val DarkColorScheme = darkColorScheme(
-    primary = Purple80,
-    secondary = PurpleGrey80,
-    tertiary = Pink80
+private val LightM3Scheme = lightColorScheme(
+    primary = Primary300,
+    onPrimary = Neutral90,
+    background = Neutral0,
+    onBackground = Neutral90,
+    surface = Neutral5,
+    onSurface = Neutral90,
+    surfaceVariant = Neutral10,
+    onSurfaceVariant = Neutral40,
+    outline = Neutral20,
+    error = ErrorRed,
+    onError = Neutral0,
 )
 
-private val LightColorScheme = lightColorScheme(
-    primary = Purple40,
-    secondary = PurpleGrey40,
-    tertiary = Pink40
-
-    /* Other default colors to override
-    background = Color(0xFFFFFBFE),
-    surface = Color(0xFFFFFBFE),
-    onPrimary = Color.White,
-    onSecondary = Color.White,
-    onTertiary = Color.White,
-    onBackground = Color(0xFF1C1B1F),
-    onSurface = Color(0xFF1C1B1F),
-    */
+private val DarkM3Scheme = darkColorScheme(
+    primary = Primary300,
+    onPrimary = Neutral90,
+    background = NeutralDark5,
+    onBackground = NeutralDark90,
+    surface = NeutralDark10,
+    onSurface = NeutralDark90,
+    surfaceVariant = NeutralDark20,
+    onSurfaceVariant = NeutralDark40,
+    outline = NeutralDark20,
+    error = ErrorRedDark,
+    onError = Neutral0,
 )
 
 @Composable
-fun CityGuideTheme(
+fun AppTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
-    // Dynamic color is available on Android 12+
-    dynamicColor: Boolean = true,
-    content: @Composable () -> Unit
+    content: @Composable () -> Unit,
 ) {
-    val colorScheme = when {
-        dynamicColor && Build.VERSION.SDK_INT >= Build.VERSION_CODES.S -> {
-            val context = LocalContext.current
-            if (darkTheme) dynamicDarkColorScheme(context) else dynamicLightColorScheme(context)
-        }
+    val appColors = if (darkTheme) DarkColors else LightColors
+    val m3Scheme = if (darkTheme) DarkM3Scheme else LightM3Scheme
 
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
+    CompositionLocalProvider(LocalAppColors provides appColors) {
+        MaterialTheme(
+            colorScheme = m3Scheme,
+            typography = AppTypography,
+            content = content,
+        )
     }
+}
 
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
+object AppTheme {
+    val colors: AppColors
+        @Composable @ReadOnlyComposable
+        get() = LocalAppColors.current
 }
